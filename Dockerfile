@@ -33,6 +33,8 @@ RUN git clone  -b ${CASPERJS_VERSION}  git://github.com/casperjs/casperjs.git \
 # grab swarm-client.jar
 RUN mkdir -p /var/jenkins_home \
  && useradd -d /var/jenkins_home/worker -u 1000 -m -s /bin/bash jenkins \
+ && groupadd -g 999 docker \
+ && usermod -aG 999 jenkins \
  && curl -o /bin/swarm-client.jar -SL https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/$SWARM_VERSION/swarm-client-$SWARM_VERSION.jar \
  && echo "$MD5  /bin/swarm-client.jar" | md5sum -c -
 
